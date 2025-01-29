@@ -1,30 +1,5 @@
 // insertion sort 
-#include <iostream>
-using namespace std;
 
-template <typename T>
-void insertion_sort(T A[], int size)
-{
-    for (int i = 0 ; i < size ; ++i)
-    {
-        T key = A[i];
-        int j = i - 1;
-        while(j >= 0 && key < A[j])
-        {
-            A[j+1] = A[j];
-            j = j-1;
-            A[j+1] = key;
-        }
-    }
-}
-template <typename T>
-void show(T A[], int size)
-{
-    for (int i = 0 ; i< size;++i)
-    {
-        cout<<" A [ "<<i<<" ] = "<<A[i]<<endl;
-    }
-}
 #include <iostream>
 #include <string>
 using namespace std;
