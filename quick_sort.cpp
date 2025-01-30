@@ -1,4 +1,5 @@
-# include <iostream>
+#include <iostream>
+#include <string>
 using namespace std;
 
 template <typename T>
@@ -10,7 +11,7 @@ void MySwap(T &a, T &b)
 }
 
 template <typename T>
-void quick_sort(T array[] ,int start , int end)
+void quick_sort(T array[], int start, int end)
 {
     if (start < end)
     {
@@ -41,36 +42,127 @@ void quick_sort(T array[] ,int start , int end)
 template <typename T>
 void show(T A[], int size)
 {
-    for (int i = 0 ; i< size;++i)
+    for (int i = 0 ; i < size; ++i)
     {
-        cout<<" A [ "<<i<<" ] = "<<A[i]<<endl;
+        cout << " A[ " << i << " ] = " << A[i] << endl;
     }
 }
-int main()
+
+int main ()
 {
-    int A[5] = {1,4,6,3,5};
-    cout<<"before sorting \n";
-    show(A,5);
-    quick_sort(A,0,4);
-    cout<<"after sorting \n";
-    show(A,5);
-    char B[5] = {'z','f','c','j','e'};
-    cout<<"before sorting \n";
-    show(B,5);
-    quick_sort(B,0,4);
-    cout<<"after sorting \n";
-    show(B,5);
-    char C[5] = {'A','E','D','C','B'};
-    cout<<"before sorting \n";
-    show(C,5);
-    quick_sort(C,0,4);
-    cout<<"after sorting \n";
-    show(C,5);
-    double D[7] = {1.4,2.3,4.6,4.4,4.8,2.5,2.7};
-    cout<<"before sorting \n";
-    show(D,5);
-    quick_sort(D,0,4);
-    cout<<"after sorting \n";
-    show(D,5);
+    char ch = 'y';
+    while(ch == 'y')
+    {
+        cout << "Valid data types are int, float, double, char, string\n";
+        string datatype;
+        cout << "Enter data type of the array: ";
+        cin >> datatype;
+
+        if (datatype == "int")
+        {
+            int size;
+            cout << "Enter the size of the array: ";
+            cin >> size;
+            int* A = new int[size];
+            for(int i = 0; i < size; i++)
+            {
+                cout << "Enter the element at index " << i << ": ";
+                cin >> A[i];
+            }
+            cout << "Before sorting:\n";
+            show(A, size);
+            quick_sort(A, 0, size - 1);
+            cout << "After sorting:\n";
+            show(A, size);
+            delete[] A;
+        }
+        else if (datatype == "float")
+        {
+            int size;
+            cout << "Enter the size of the array: ";
+            cin >> size;
+            float* A = new float[size];
+            for(int i = 0; i < size; i++)
+            {
+                cout << "Enter the element at index " << i << ": ";
+                cin >> A[i];
+            }
+            cout << "Before sorting:\n";
+            show(A, size);
+            quick_sort(A, 0, size - 1);
+            cout << "After sorting:\n";
+            show(A, size);
+            delete[] A;
+        }
+        else if (datatype == "double")
+        {
+            int size;
+            cout << "Enter the size of the array: ";
+            cin >> size;
+            double* A = new double[size];
+            for(int i = 0; i < size; i++)
+            {
+                cout << "Enter the element at index " << i << ": ";
+                cin >> A[i];
+            }
+            cout << "Before sorting:\n";
+            show(A, size);
+            quick_sort(A, 0, size - 1);
+            cout << "After sorting:\n";
+            show(A, size);
+            delete[] A;
+        }
+        else if (datatype == "char")
+        {
+            int size;
+            cout << "Enter the size of the array: ";
+            cin >> size;
+            char* A = new char[size];
+            for(int i = 0; i < size; i++)
+            {
+                cout << "Enter the element at index " << i << ": ";
+                cin >> A[i];
+            }
+            cout << "Before sorting:\n";
+            show(A, size);
+            quick_sort(A, 0, size - 1);
+            cout << "After sorting:\n";
+            show(A, size);
+            delete[] A;
+        }
+        else if (datatype == "string")
+        {
+            int size;
+            cout << "Enter the size of the array: ";
+            cin >> size;
+            string* A = new string[size];
+            for(int i = 0; i < size; i++)
+            {
+                cout << "Enter the element at index " << i << ": ";
+                cin >> A[i];
+            }
+            cout << "Before sorting:\n";
+            show(A, size);
+            quick_sort(A, 0, size - 1);
+            cout << "After sorting:\n";
+            show(A, size);
+            delete[] A;
+        }
+        else
+        {
+            cout << "Invalid data type\n";
+        }
+
+        cout << "Do you want to continue? (y/n): ";
+        cin >> ch;
+        if (ch == 'n')
+        {
+            cout << "Goodbye!\n";
+        }
+        else if (ch != 'y' && ch != 'n')
+        {
+            cout << "Invalid input\n";
+        }
+    }
     return 0;
 }
