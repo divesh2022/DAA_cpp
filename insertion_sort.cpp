@@ -145,11 +145,5 @@ int main ()
     {
         cout << "Invalid input\n";
     }
-    else
-    {
-        exit(0);
-    }
-
-    }
     return 0;
 }
