@@ -130,20 +130,18 @@ int main ()
         {
             cout << "Invalid data type\n";
         }
-        
+    } 
         cout<<"Do you want to continue? (y/n): ";
         cin>>ch;
             if(ch == 'n')
     {
         cout << "Goodbye!\n";
     }
-    else if(ch == 'y')
-    {
-        continue;
-    }
+
     else if(ch != 'y' || ch != 'n')
     {
         cout << "Invalid input\n";
     }
+    
     return 0;
 }
