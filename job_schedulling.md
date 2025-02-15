@@ -107,13 +107,10 @@ void execute_jobs(Queue* queue) {
 int main() {
     Queue queue;
     init_queue(&queue);
-
     enqueue(&queue, create_job(1, 5));
     enqueue(&queue, create_job(2, 3));
     enqueue(&queue, create_job(3, 2));
-
     printf("Executing jobs using FCFS scheduling:\n");
     execute_jobs(&queue);
-
     return 0;
 }
