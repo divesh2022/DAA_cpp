@@ -1,3 +1,4 @@
+// first come first serve
 #include <stdio.h>
 #include <stdlib.h>
 
