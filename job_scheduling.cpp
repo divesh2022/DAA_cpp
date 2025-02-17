@@ -1,27 +1,32 @@
-// shortest job come first
+// priority job schedulling
 #include <iostream>
 # include <vector>
 #include <algorithm>
 using namespace std;
 
-struct Job {
+struct Job 
+{
     int id;
     int priority;
     int deadline;
     int burst_time;
 };
 
-struct node {
+struct node 
+{
     Job job;
     node* next;
 };
 
-struct Queue {
+struct Queue 
+{
     node* front;
     node* rear;
 };
 
-Job create_job(int id, int deadline, int priority, int burst_time) {
+Job create_job(int id, int deadline, int priority, int burst_time) 
+
+{
     Job job;
     job.id = id;
     job.deadline = deadline;
@@ -30,50 +35,62 @@ Job create_job(int id, int deadline, int priority, int burst_time) {
     return job;
 }
 
-node* create_node(Job job) {
+node* create_node(Job job) 
+{
     node* Node = new node;
     Node->job = job;
     Node->next = NULL;
     return Node;
 }
 
-void init_queue(Queue* queue) {
+void init_queue(Queue* queue) 
+{
     queue->front = NULL;
     queue->rear = NULL;
 }
 
-int is_queue_empty(Queue* queue) {
+int is_queue_empty(Queue* queue) 
+{
     return queue->front == NULL;
 }
 
-void enqueue(Queue* queue, Job job) {
+void enqueue(Queue* queue, Job job) 
+{
     node* Node = create_node(job);
-    if (queue->rear == NULL) {
+    if (queue->rear == NULL) 
+    {
         queue->front = queue->rear = Node;
-    } else {
+    } 
+    else 
+    {
         queue->rear->next = Node;
         queue->rear = Node;
     }
 }
 
-Job dequeue(Queue* queue) {
-    if (is_queue_empty(queue)) {
+Job dequeue(Queue* queue) 
+{
+    if (is_queue_empty(queue)) 
+    {
         cout << "queue is empty\n";
         exit(1);
     }
     node* temp = queue->front;
     Job job = temp->job;
     queue->front = queue->front->next;
-    if (queue->front == NULL) {
+    if (queue->front == NULL) 
+    {
         queue->rear = NULL;
     }
     delete temp; // Added to prevent memory leak
     return job;
 }
 
-void execute_job(Queue* queue) {
+void execute_job(Queue* queue) 
+{
     int T = 0;
-    while (!is_queue_empty(queue)) {
+    while (!is_queue_empty(queue)) 
+    {
         Job job = dequeue(queue);
         cout << " Processing job  " << job.id << "  with deadline " << job.deadline << "  waiting time : "<<T <<endl;
         T += job.burst_time;
@@ -93,13 +110,16 @@ int main() {
     vector<int> priority(n);
     vector<int> deadline(n);
     cout << "enter job profile in format <int id>-<int brust_time>-<int priority>-<int deadline>\n";
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) 
+    {
         cout<<i+1<<"th process : ";
         scanf("%d-%d-%d-%d", &id[i], &burst_time[i], &priority[i], &deadline[i]);
     }
     for (int i = 0; i < n; i++) {
-        for (int j = i + 1; j < n; j++) {
-            if (priority[i] > priority[j]) {
+        for (int j = i + 1; j < n; j++) 
+        {
+            if (priority[i] > priority[j]) 
+            {
                 swap(burst_time[i], burst_time[j]);
                 swap(id[i], id[j]);
                 swap(priority[i],priority[j]);
@@ -113,7 +133,8 @@ int main() {
         if(job.deadline < T){
             cout << "job " << id[i] << " missed the deadline\n";
         }
-        else{
+        else
+        {
             enqueue(&queue, job);
         }
         T = T + burst_time[i];
