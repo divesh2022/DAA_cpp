@@ -1,6 +1,5 @@
-// priority job schedulling
 #include <iostream>
-# include <vector>
+#include <vector>
 #include <algorithm>
 using namespace std;
 
@@ -10,6 +9,7 @@ struct Job
     int priority;
     int deadline;
     int burst_time;
+    int profit;
 };
 
 struct node 
@@ -24,14 +24,14 @@ struct Queue
     node* rear;
 };
 
-Job create_job(int id, int deadline, int priority, int burst_time) 
-
+Job create_job(int id, int deadline, int priority, int burst_time, int profit) 
 {
     Job job;
     job.id = id;
     job.deadline = deadline;
     job.priority = priority;
     job.burst_time = burst_time;
+    job.profit = profit;
     return job;
 }
 
@@ -92,71 +92,53 @@ void execute_job(Queue* queue)
     while (!is_queue_empty(queue)) 
     {
         Job job = dequeue(queue);
-        cout << " Processing job  " << job.id << "  with deadline " << job.deadline << "  waiting time : "<<T <<endl;
+        cout << " Processing job  " << job.id << "  with deadline " << job.deadline << "  waiting time : " << T << endl;
         T += job.burst_time;
     }
 }
-
 
 int main() {
     printf("priority scheduling\n");
     Queue queue;
     init_queue(&queue);
-    cout << "enter no of available jobs : ";
+    cout << "enter number of available jobs: ";
     int n;
-    cin>> n;
-    vector<int> id(n);
-    vector<int> burst_time(n);
-    vector<int> priority(n);
-    vector<int> deadline(n);
-    cout << "enter job profile in format <int id>-<int brust_time>-<int priority>-<int deadline>\n";
+    cin >> n;
+    int id, deadline, priority, burst_time, profit;
+    vector <Job> jobs;
+    cout << "enter job profile in format <int id>-<int burst_time>-<int priority>-<int deadline>-<int profit>\n";
     for (int i = 0; i < n; i++) 
     {
-        cout<<i+1<<"th process : ";
-        scanf("%d-%d-%d-%d", &id[i], &burst_time[i], &priority[i], &deadline[i]);
+        cout << i + 1 << "th process : ";
+        scanf("%d-%d-%d-%d-%d", &id, &burst_time, &priority, &deadline, &profit);
+        Job new_job = create_job(id, deadline, priority, burst_time, profit);
+        jobs.push_back(new_job);
     }
     for (int i = 0; i < n; i++) {
         for (int j = i + 1; j < n; j++) 
         {
-            if (priority[i] > priority[j]) 
+            if(jobs[i].priority > jobs[j].priority)
             {
-                swap(burst_time[i], burst_time[j]);
-                swap(id[i], id[j]);
-                swap(priority[i],priority[j]);
-                swap(deadline[i],deadline[j]);
+                swap(jobs[i],jobs[j]);
             }
         }
     }
     int T = 0;
+    int P = 0;
     for (int i = 0; i < n; i++) {
-        Job job = create_job(id[i], deadline[i], priority[i], burst_time[i]);
-        if(job.deadline < T){
-            cout << "job " << id[i] << " missed the deadline\n";
+        if(jobs[i].deadline < T){
+            cout << "job " << jobs[i].id << " missed the deadline\n";
         }
         else
         {
-            enqueue(&queue, job);
+            enqueue(&queue, jobs[i]);
+            T = T + jobs[i].burst_time;
+            P = P + jobs[i].profit;
         }
-        T = T + burst_time[i];
     }
     printf("-----job schedule-----\n");
     execute_job(&queue);
+    printf("total time taken = %d\n", T);
+    printf("total profit = %d\n", P);
     return 0;
 }
-// Output
-/*
-priority scheduling
-enter no of available jobs : 5
-enter job profile in format <int id>-<int brust_time>-<int priority>-<int deadline>
-1th process : 1-3-2-10
-2th process : 2-1-3-8
-3th process : 3-2-1-12
-4th process : 4-4-2-6
-5th process : 5-1-1-14
-job 2 missed the deadline
------job schedule-----
- Processing job  3  with deadline 12  waiting time : 0
- Processing job  5  with deadline 14  waiting time : 2
- Processing job  4  with deadline 6  waiting time : 3
- Processing job  1  with deadline 10  waiting time : 7
-*/
