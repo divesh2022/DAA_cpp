@@ -142,3 +142,42 @@ int main() {
     printf("total profit = %d\n", P);
     return 0;
 }
+/*void job_scheduling() {
+    printf("priority scheduling\n");
+    Queue queue;
+    init_queue(&queue);
+    cout << "enter number of available jobs: ";
+    int n;
+    cin >> n;
+    int id, deadline, priority, burst_time, profit;
+    vector<Job> jobs;
+    cout << "enter job profile in format <int id>-<int burst_time>-<int priority>-<int deadline>-<int profit>\n";
+    for (int i = 0; i < n; i++) {
+        cout << i + 1 << "th process : ";
+        scanf("%d-%d-%d-%d-%d", &id, &burst_time, &priority, &deadline, &profit);
+        Job new_job = create_job(id, deadline, priority, burst_time, profit);
+        jobs.push_back(new_job);
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (jobs[i].priority > jobs[j].priority) {
+                swap(jobs[i], jobs[j]);
+            }
+        }
+    }
+    int T = 0;
+    int P = 0;
+    for (int i = 0; i < n; i++) {
+        if (jobs[i].deadline < T) {
+            cout << "job " << jobs[i].id << " missed the deadline\n";
+        } else {
+            enqueue(&queue, jobs[i]);
+            T = T + jobs[i].burst_time;
+            P = P + jobs[i].profit;
+        }
+    }
+    printf("-----job schedule-----\n");
+    execute_job(&queue);
+    printf("total time taken = %d\n", T);
+    printf("total profit = %d\n", P);
+}*/
