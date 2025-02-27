@@ -13,13 +13,11 @@ def main():
     lst = input("Enter the list of numbers separated by hyphens: ")
     lst = lst.split("-")
     print("Unsorted list is", lst)
-    a = []
-    for i in lst:
-        a.append(int(i))
-    a = sorted(a)
-    print("Sorted list is", a)
+    num_list = [int(i) for i in lst]
+    sorted_list = sorted(num_list)
+    print("Sorted list is", sorted_list)
     key = int(input("Enter value to find: "))
-    res = binary_search(a, 0, len(a)-1, key)
+    res = binary_search(sorted_list, 0, len(sorted_list) - 1, key)
     if res != False:
         print("Element found at index", res)
     else:
