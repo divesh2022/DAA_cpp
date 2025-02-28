@@ -1,4 +1,4 @@
-// shortest job come first
+// round robin
 #include <iostream>
 # include <vector>
 #include <algorithm>
