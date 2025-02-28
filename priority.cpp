@@ -1,4 +1,5 @@
-// shortest job come first
+
+//Priority-based scheduling
 #include <iostream>
 # include <vector>
 #include <algorithm>
