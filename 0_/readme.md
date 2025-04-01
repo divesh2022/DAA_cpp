@@ -1,4 +1,3 @@
-Here is a README for the `1knapsack.py` file:
 
 ---
 
@@ -72,5 +71,3 @@ Value: 100, Weight: 2
 This project is licensed under the MIT License.
 
 ---
-
-Make sure to place this README in the same directory as your `1knapsack.py` file or in your repository's root directory.
