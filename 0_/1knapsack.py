@@ -39,3 +39,26 @@ if __name__ == "__main__":
     for value, weight in selected_items:
         print(f"Value: {value}, Weight: {weight}")
 
+''' 
+Dynamic Programming Table:
+intializing dp table
+[0, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0, 0]
+
+
+Final dp table
+[0, 0, 0, 0, 0, 0]
+[0, 60, 60, 60, 60, 60]
+[0, 60, 100, 160, 160, 160]
+[0, 60, 100, 160, 180, 220]
+
+
+
+Maximum value that can be accommodated in the knapsack: 220
+
+Items included in the knapsack:
+Value: 120, Weight: 3
+Value: 100, Weight: 2
+'''
