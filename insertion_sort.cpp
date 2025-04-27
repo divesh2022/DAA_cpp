@@ -1,147 +1,86 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
-template <typename T>
-void insertion_sort(T A[], int size)
-{
-    for (int i = 1 ; i < size ; ++i)
-    {
-        T key = A[i];
-        int j = i - 1;
-        while(j >= 0 && key < A[j])
-        {
-            A[j+1] = A[j];
-            j = j-1;
+class ArrayHandler {
+private:
+    vector<int> originalArray;
+    vector<int> clonedArray;
+
+public:
+    // Constructor to initialize the array
+    ArrayHandler(const vector<int>& array) {
+        originalArray = array;
+        clonedArray = array; // Clone the original array
+    }
+
+    // Function to perform insertion sort on the cloned array
+    bool performSort() {
+        try {
+            for (size_t i = 1; i < clonedArray.size(); ++i) {
+                int key = clonedArray[i];
+                int j = i - 1;
+                while (j >= 0 && key < clonedArray[j]) {
+                    clonedArray[j + 1] = clonedArray[j];
+                    --j;
+                }
+                clonedArray[j + 1] = key;
+            }
+            // If sorting is successful, replace the original array
+            originalArray = clonedArray;
+            return true;
+        } catch (...) {
+            // If sorting fails, return error code
+            return false;
         }
-        A[j+1] = key;
     }
-}
 
-template <typename T>
-void show(T A[], int size)
-{
-    for (int i = 0 ; i < size; ++i)
-    {
-        cout << " A[ " << i << " ] = " << A[i] << endl;
+    // Function to show the array
+    void showArray() const {
+        for (size_t i = 0; i < originalArray.size(); ++i) {
+            cout << "A[" << i << "] = " << originalArray[i] << endl;
+        }
     }
-}
 
-int main ()
-{
+    // Function to show the error if sorting fails
+    void handleError() const {
+        cout << "Error Code: 106 - Sorting failed. Original array retained." << endl;
+    }
+};
+
+int main() {
     char ch = 'y';
-    while(ch =='y')
-    {
-        cout << "valid data types are int, float, double, char, string\n";
-        string datatype;
-        cout << "Enter data type of the array: ";
-        cin >> datatype;
-        if ( datatype == "int")
-        {
-        int size;
+    while (ch == 'y') {
         cout << "Enter the size of the array: ";
+        int size;
         cin >> size;
-        int* A = new int[size];
-        for(int i = 0; i < size; i++)
-        {
+
+        vector<int> array(size);
+        for (int i = 0; i < size; ++i) {
             cout << "Enter the element at index " << i << ": ";
-            cin >> A[i];
+            cin >> array[i];
         }
-        cout << "Before sorting:\n";
-        show(A, size);
-        insertion_sort(A, size);
-        cout << "After sorting:\n";
-        show(A, size);
-        delete[] A;
+
+        cout << "Before sorting:" << endl;
+        ArrayHandler handler(array);
+        handler.showArray();
+
+        if (handler.performSort()) {
+            cout << "After sorting:" << endl;
+            handler.showArray();
+        } else {
+            handler.handleError();
         }
-        else if (datatype == "float")
-        {
-            int size;
-            cout << "Enter the size of the array: ";
-            cin >> size;
-            float* A = new float[size];
-            for(int i = 0; i < size; i++)
-            {
-                cout << "Enter the element at index " << i << ": ";
-                cin >> A[i];
-            }
-            cout << "Before sorting:\n";
-            show(A, size);
-            insertion_sort(A, size);
-            cout << "After sorting:\n";
-            show(A, size);
-            delete[] A;
+
+        cout << "Do you want to continue? (y/n): ";
+        cin >> ch;
+        if (ch != 'y' && ch != 'n') {
+            cout << "Invalid input. Exiting..." << endl;
+            break;
         }
-        else if (datatype == "double")
-        {
-            int size;
-            cout << "Enter the size of the array: ";
-            cin >> size;
-            double* A = new double[size];
-            for(int i = 0; i < size; i++)
-            {
-                cout << "Enter the element at index " << i << ": ";
-                cin >> A[i];
-            }
-            cout << "Before sorting:\n";
-            show(A, size);
-            insertion_sort(A, size);
-            cout << "After sorting:\n";
-            show(A, size);
-            delete[] A;
-        }
-        else if (datatype == "char")
-        {
-            int size;
-            cout << "Enter the size of the array: ";
-            cin >> size;
-            char* A = new char[size];
-            for(int i = 0; i < size; i++)
-            {
-                cout << "Enter the element at index " << i << ": ";
-                cin >> A[i];
-            }
-            cout << "Before sorting:\n";
-            show(A, size);
-            insertion_sort(A, size);
-            cout << "After sorting:\n";
-            show(A, size);
-            delete[] A;
-        }
-        else if (datatype == "string")
-        {
-            int size;
-            cout << "Enter the size of the array: ";
-            cin >> size;
-            string* A = new string[size];
-            for(int i = 0; i < size; i++)
-            {
-                cout << "Enter the element at index " << i << ": ";
-                cin >> A[i];
-            }
-            cout << "Before sorting:\n";
-            show(A, size);
-            insertion_sort(A, size);
-            cout << "After sorting:\n";
-            show(A, size);
-            delete[] A;
-        }
-        else
-        {
-            cout << "Invalid data type\n";
-        }
-    } 
-        cout<<"Do you want to continue? (y/n): ";
-        cin>>ch;
-            if(ch == 'n')
-    {
-        cout << "Goodbye!\n";
     }
 
-    else if(ch != 'y' || ch != 'n')
-    {
-        cout << "Invalid input\n";
-    }
-    
+    cout << "Goodbye!" << endl;
     return 0;
 }
