@@ -19,9 +19,9 @@ def binary_search_i(lst, start, stop, key):
         if key == lst[mid]:
             return mid
         elif key < lst[mid]:
-            return binary_search(lst, start, mid-1, key)
+            return binary_search_i(lst, start, mid-1, key)
         else:
-            return binary_search(lst, mid+1, stop, key)
+            return binary_search_i(lst, mid+1, stop, key)
 ```
 
 ### Iterative Binary Search (`binary_search_r`)
